@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AeroNetB Task 2 Dashboard - Student Project</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 900px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .header-icon {
+            font-size: 2.5em;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .content {
+            padding: 40px 30px;
+        }
+
+        .section {
+            margin-bottom: 35px;
+        }
+
+        .section h2 {
+            color: #667eea;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .section p {
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin: 15px 0;
+        }
+
+        .feature-list li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #555;
+        }
+
+        .feature-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .pages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .page-card {
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .page-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .page-card h3 {
+            color: #667eea;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        .page-card p {
+            font-size: 0.9em;
+            color: #777;
+        }
+
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin: 15px 0;
+        }
+
+        .tech-badge {
+            background: #f0f4ff;
+            border: 1px solid #667eea;
+            color: #667eea;
+            padding: 10px 15px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: 500;
+            font-size: 0.95em;
+        }
+
+        .api-endpoints {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .api-endpoints code {
+            display: block;
+            color: #333;
+            margin: 5px 0;
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .footer p {
+            color: #777;
+            font-size: 0.95em;
+            margin-bottom: 10px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn-secondary:hover {
+            background: #f0f4ff;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .header {
+                padding: 30px 20px;
+            }
+
+            .content {
+                padding: 25px 20px;
+            }
+
+            .section h2 {
+                font-size: 1.3em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>
+                <span class="header-icon">✈️</span>
+                AeroNetB Task 2 Dashboard
+            </h1>
+            <p>A Student Project for Hybrid Database Management</p>
+        </div>
+
+        <div class="content">
+            <!-- Overview Section -->
+            <div class="section">
+                <h2>📋 Project Overview</h2>
+                <p>
+                    AeroNetB Task 2 Dashboard is a comprehensive web-based system designed as a university coursework project for managing suppliers, shipments, quality control, and IoT monitoring in an aerospace supply chain context.
+                </p>
+                <p>
+                    The system demonstrates how a hybrid database architecture (SQL + MongoDB) can be effectively used to manage operational data and monitoring systems in a real-world scenario.
+                </p>
+            </div>
+
+            <!-- Features Section -->
+            <div class="section">
+                <h2>🎯 Key Features</h2>
+                <ul class="feature-list">
+                    <li>Role-based authentication (Admin, Manager, Auditor)</li>
+                    <li>Comprehensive dashboard with KPI cards</li>
+                    <li>Supplier management and tracking</li>
+                    <li>Order management with detailed modal views</li>
+                    <li>Shipment tracking with status filtering</li>
+                    <li>Quality control reporting system</li>
+                    <li>IoT sensor monitoring and logging</li>
+                    <li>Light/Dark mode theme toggle</li>
+                    <li>Responsive design for all devices</li>
+                    <li>Clean, student-friendly UI</li>
+                </ul>
+            </div>
+
+            <!-- Pages Section -->
+            <div class="section">
+                <h2>📄 Application Pages</h2>
+                <div class="pages-grid">
+                    <div class="page-card">
+                        <h3>🔐 Login</h3>
+                        <p>Role selection and authentication</p>
+                    </div>
+                    <div class="page-card">
+                        <h3>📊 Dashboard</h3>
+                        <p>KPI overview and system status</p>
+                    </div>
+                    <div class="page-card">
+                        <h3>📦 Orders</h3>
+                        <p>Order management with details modal</p>
+                    </div>
+                    <div class="page-card">
+                        <h3>🏢 Suppliers</h3>
+                        <p>Supplier directory and search</p>
+                    </div>
+                    <div class="page-card">
+                        <h3>🚚 Shipments</h3>
+                        <p>Shipment tracking and status</p>
+                    </div>
+                    <div class="page-card">
+                        <h3>✅ Quality Control</h3>
+                        <p>QC reports and compliance</p>
+                    </div>
+                    <div class="page-card">
+                        <h3>📡 IoT Monitoring</h3>
+                        <p>Sensor data and logs</p>
+                    </div>
+                    <div class="page-card">
+                        <h3>⚙️ Settings</h3>
+                        <p>Theme and preferences</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tech Stack Section -->
+            <div class="section">
+                <h2>🛠️ Technology Stack</h2>
+                <div class="tech-stack">
+                    <div class="tech-badge">React 19</div>
+                    <div class="tech-badge">TypeScript</div>
+                    <div class="tech-badge">Tailwind CSS 4</div>
+                    <div class="tech-badge">Vite</div>
+                    <div class="tech-badge">Wouter (Routing)</div>
+                    <div class="tech-badge">Lucide Icons</div>
+                    <div class="tech-badge">shadcn/ui</div>
+                </div>
+            </div>
+
+            <!-- API Endpoints Section -->
+            <div class="section">
+                <h2>🔌 API Endpoints</h2>
+                <p>The system demonstrates integration with the following API endpoints:</p>
+                <div class="api-endpoints">
+                    <code>GET /api/orders</code>
+                    <code>GET /api/suppliers</code>
+                    <code>GET /api/shipments</code>
+                    <code>GET /api/qc-reports</code>
+                    <code>GET /api/iot-logs</code>
+                </div>
+            </div>
+
+            <!-- Database Section -->
+            <div class="section">
+                <h2>💾 Database Architecture</h2>
+                <p>
+                    <strong>SQL Tables:</strong> orders, suppliers, shipments, qc_reports
+                </p>
+                <p>
+                    <strong>MongoDB Collections:</strong> iot_logs, sensor_data
+                </p>
+                <p>
+                    This hybrid approach demonstrates how relational data (orders, suppliers) can coexist with document-based data (IoT logs, sensor readings) in a single application.
+                </p>
+            </div>
+
+            <!-- Getting Started Section -->
+            <div class="section">
+                <h2>🚀 Getting Started</h2>
+                <p><strong>Installation:</strong></p>
+                <div class="api-endpoints">
+                    <code>npm install</code>
+                    <code>npm run dev</code>
+                </div>
+                <p style="margin-top: 15px;"><strong>Build for production:</strong></p>
+                <div class="api-endpoints">
+                    <code>npm run build</code>
+                </div>
+            </div>
+
+            <!-- Project Structure Section -->
+            <div class="section">
+                <h2>📁 Project Structure</h2>
+                <div class="api-endpoints">
+                    <code>client/src/pages/        - Page components</code>
+                    <code>client/src/components/   - Reusable UI components</code>
+                    <code>client/src/contexts/    - React contexts (Auth, Theme)</code>
+                    <code>client/src/lib/        - Utility functions</code>
+                    <code>client/src/index.css   - Global styles</code>
+                </div>
+            </div>
+
+            <!-- Design Notes Section -->
+            <div class="section">
+                <h2>🎨 Design Philosophy</h2>
+                <p>
+                    The dashboard follows a clean, modern design approach suitable for a student coursework project. Key design principles include:
+                </p>
+                <ul class="feature-list">
+                    <li>Light background with white cards for clarity</li>
+                    <li>Rounded corners and consistent spacing</li>
+                    <li>Grey accent colors for a professional appearance</li>
+                    <li>Dark mode support for accessibility</li>
+                    <li>Intuitive navigation with sidebar menu</li>
+                    <li>Clear data visualization with status badges</li>
+                </ul>
+            </div>
+
+            <!-- Author Section -->
+            <div class="section">
+                <h2>👨‍🎓 About This Project</h2>
+                <p>
+                    This project is designed as a university coursework submission demonstrating:
+                </p>
+                <ul class="feature-list">
+                    <li>Full-stack web application development</li>
+                    <li>Hybrid database design and implementation</li>
+                    <li>Modern frontend frameworks and tools</li>
+                    <li>Responsive and accessible UI design</li>
+                    <li>Real-world business logic implementation</li>
+                    <li>Professional code organization and structure</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>AeroNetB Task 2 Dashboard</strong></p>
+            <p>A comprehensive student project for supply chain management and IoT monitoring</p>
+            <p style="margin-top: 15px; font-size: 0.9em; color: #999;">
+                Built with React, TypeScript, Tailwind CSS, and modern web technologies
+            </p>
+            <div class="button-group">
+                <a href="#" class="btn btn-primary">View Live Demo</a>
+                <a href="https://github.com" class="btn btn-secondary">View on GitHub</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
